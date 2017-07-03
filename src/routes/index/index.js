@@ -5,7 +5,8 @@ import { DatePicker, List, Button, Icon, Tabs, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import styles from './index.less';
 import {classnames} from '../../utils/index';
-import { browserHistory } from 'dva/router'
+import { browserHistory } from 'dva/router';
+import QueueAnim from 'rc-queue-anim';
 
 const TabPane = Tabs.TabPane;
 
@@ -41,28 +42,30 @@ class MobileDemo extends React.Component {
 
   render() {
     return (
-      <div>
-        <List renderHeader={() => '选择时间'}>
-          <DatePicker
-            mode="datetime"
-            {...this.props.form.getFieldProps('datetime')}
-          >
-            <List.Item arrow="horizontal">日期+时间</List.Item>
-          </DatePicker>
-        </List>
-        <Button className={classnames({[styles.button]: true, [styles.fb]: false})}  style={{ margin: '16px 0', padding: '0 16px' }} type="primary" onClick={this.handleClick.bind(this)}>
-          跳转
-        </Button>
+      <QueueAnim  duration="500">
+        <div key='index'>
+          <List renderHeader={() => '选择时间'}>
+            <DatePicker
+              mode="datetime"
+              {...this.props.form.getFieldProps('datetime')}
+            >
+              <List.Item arrow="horizontal">日期+时间</List.Item>
+            </DatePicker>
+          </List>
+          <Button className={classnames({[styles.button]: true, [styles.fb]: false})}  style={{ margin: '16px 0', padding: '0 16px' }} type="primary" onClick={this.handleClick.bind(this)}>
+            跳转
+          </Button>
 
-        <Icon type="check" />
-        <Icon  type={require('../../svg/fortune.svg')} />
-        <div>
-          <Tabs defaultActiveKey="8" onChange={callback}>
-            {makeMultiTabPane(10)}
-          </Tabs>
-          <WhiteSpace />
+          <Icon type="check" />
+          <Icon  type={require('../../svg/fortune.svg')} />
+          <div>
+            <Tabs defaultActiveKey="8" onChange={callback}>
+              {makeMultiTabPane(10)}
+            </Tabs>
+            <WhiteSpace />
+          </div>
         </div>
-      </div>
+      </QueueAnim>
     );
   }
 }
